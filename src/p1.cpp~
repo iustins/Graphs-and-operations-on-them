@@ -1,0 +1,147 @@
+#include <iostream>
+#include <fstream>
+#include <algorithm>
+#include <vector>
+
+using namespace std;
+
+	struct nod{ int index; int dist;};
+	struct muchie{ nod st; nod dr;};
+
+	void swap(nod* x, nod* y) 
+	{ 
+   		 nod tmp = *x; 
+    		 *x = *y; 
+ 	         *y = tmp; 
+	}		 	
+	
+	int partitie (nod vec[], int mic, int mare) 
+	{ 
+   		 nod pi = vec[mare];    
+    		 int i = (mic - 1);  
+  
+   		 for (int j = mic; j <= mare - 1; j++) 
+    	          	  if (vec[j].dist <= pi.dist) 
+        		  { 
+     				i++;    
+            			swap(&vec[i], &vec[j]); 
+       			  } 
+    	
+	 swap(&vec[i + 1], &vec[mare]); 
+    	 return (i + 1); 
+	} 
+
+	void quicksort(nod vec[], int mic, int mare) 
+	{ 
+   		 if (mic < mare) 
+    		 { 
+     			   int p = partitie(vec, mic, mare); 
+      			   quicksort(vec, mic, p - 1); 
+      			   quicksort(vec, p + 1, mare); 
+	         } 
+	} 
+
+int main()
+
+{
+	int i, N;
+	int cnt = 0;
+
+	ifstream fin( "p1.in" );
+	ofstream fout( "p1.out" );
+	 
+	fin >> N;
+	int v[N];
+	muchie rez[100000000];
+	nod vec[N], min;
+	
+	
+	for(i = 1; i <= N; i++)
+		fin >> v[i];
+
+	for(i = 1; i <= N; i++)
+	{
+		vec[i].index = i;
+		vec[i].dist = v[i];
+	}
+
+	quicksort(vec, 1, N);
+
+		
+		if((vec[1].dist == 0) && (vec[2].dist == 0))
+				fout << -1; 
+		else 
+		{	
+			min = vec[1];
+
+			for(i = 2; i <= N; i++)
+			{
+				if((vec[i].dist - vec[i-1].dist) > 1)
+				{
+					fout << -1;
+					break;
+				}
+
+			        if((vec[i].dist - min.dist) == 1)
+				{
+					cnt++;
+					rez[cnt].st = min;
+					rez[cnt].dr = vec[i];
+				}
+
+				if((vec[i].dist - min.dist) == 2)
+				{
+					min = vec[i-1];
+					cnt++;
+					rez[cnt].st = min;
+					rez[cnt].dr = vec[i];
+				}
+		  }				
+			
+		  fout << cnt << endl;
+		  for(i = 1; i <= cnt; i++)
+			fout << rez[cnt].st.index << " " << rez[cnt].dr.index << endl;
+		
+		fin.close();
+		fout.close();
+
+	          return 0;
+}
+				
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
