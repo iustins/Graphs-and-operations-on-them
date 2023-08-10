@@ -1,4 +1,4 @@
-# Graphs-and-operations-on-them
+# Graphs-and-their-operations
 
 -Problema 1:
 Pentru rezolvarea problemei 1 mi-am creat doua structuri: o structura nod cu campurile index si dist (unde dist reprezinta distanta la care se afla respectivul nod fata de origine), si o structura muchie care are drept campuri 2 campuri de tip nod, unul numit st si celalalt dr. Mi-am creat de asemenea si o functie myfunction care sa ma ajute sa implementez algoritmul de sortare sort din biblioteca algorithm. Aceasta functie myfunction este de tip boolean si intoarce 1 daca nodul i este situat la o distanta mai mica decat nodul j fata de nodul din origine.
